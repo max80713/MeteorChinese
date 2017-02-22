@@ -15,7 +15,7 @@ client/main.js
 # 前端進入點
 
 client/main.html      
-# 負責定義網頁上的元件的html檔
+# 負責定義網頁模板的html檔
 
 client/main.css       
 # 負責定義網頁樣式的css檔
