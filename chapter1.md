@@ -1,3 +1,10 @@
-# First Chapter
+# 安裝
 
-GitBook allows you to organize your book into chapters, each chapter is stored in a separate file like this one.
+WINDOWS: [https://install.meteor.com/windows](https://install.meteor.com/windows)
+
+OSX / LINUX: 終端機輸入`curl https://install.meteor.com/ | sh`
+
+
+
+
+
