@@ -43,7 +43,7 @@ meteor
 
 打開瀏覽器然後輸入`http://localhost:3000`就可以看到這個App已經在執行了!
 
-現在你可以試著修改這個App。打開文字編輯器，把`client/main.html`裡面的`<h1>`改成你喜歡的樣式，例如:`<h4>`然後存檔，再回去看正在執行的App，你會發現字體變小了!這是因為當App正在執行的時候，Meteor會偷偷在背後觀察你的程式碼，如果有發現任何修改，Meteor會自動幫你更新，我們稱之「hot code push」
+現在你可以試著修改這個App。打開文字編輯器，把`client/main.html`裡面的`<h1>`改成你喜歡的樣式，例如:`<h4>`然後存檔，再回去看正在執行的App，你會發現字體變小了!這是因為當App正在執行的時候，Meteor會偷偷在背後觀察你的程式碼，如果有發現任何修改，Meteor會自動幫你更新，我們稱之「hot code push」。
 
 ### ES2015 JavaScript 特性 {#es2015javascriptfeatures}
 
