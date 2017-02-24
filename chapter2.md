@@ -1,6 +1,6 @@
 # 第一支App
 
-本教學的目標是要教大家做出一個簡單的"待辦事項管理"App，而且可以同時多人使用。
+本教學的目標是要帶領大家做出一個可以同時多人使用的"待辦事項管理App"。
 
 首先要建立一個樣板App，非常簡單，只要打開終端機然後輸入:
 
@@ -8,7 +8,7 @@
 meteor create simple-todos
 ```
 
-這樣就會自動建立一個資料夾叫做`simple-todos`，資料夾底下包含啟動並且執行一個Meteor App所需要的所有檔案:
+這樣就會自動建立一個資料夾叫做`simple-todos`，資料夾底下包含所有啟動並且執行一個Meteor App所需要的檔案:
 
 ```
 client/main.js        
@@ -43,7 +43,7 @@ meteor
 
 打開瀏覽器然後輸入`http://localhost:3000`就可以看到這個App已經在執行了!
 
-現在你可以試著修改這個App。打開文字編輯器，把`client/main.html`裡面的`<h1>`改成你喜歡的樣式，例如:`<h4>`然後存檔，再回去看正在執行的App，你會發現字體變小了!這是因為當App正在執行的時候，Meteor會偷偷在背後觀察你的程式碼，如果有發現任何修改Meteor會自動幫你更新，我們稱之「hot code push」
+現在你可以試著修改這個App。打開文字編輯器，把`client/main.html`裡面的`<h1>`改成你喜歡的樣式，例如:`<h4>`然後存檔，再回去看正在執行的App，你會發現字體變小了!這是因為當App正在執行的時候，Meteor會偷偷在背後觀察你的程式碼，如果有發現任何修改，Meteor會自動幫你更新，我們稱之「hot code push」
 
 ### ES2015 JavaScript 特性 {#es2015javascriptfeatures}
 
