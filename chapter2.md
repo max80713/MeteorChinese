@@ -1,6 +1,6 @@
 # 第一個App
 
-在這一章，我們要做一個簡單的"待辦事項管理"App，而且可以同時多個人使用。
+本教學的目標是要教大家做出一個簡單的"待辦事項管理"App，而且可以同時多人使用。
 
 首先要建立一個樣板App，非常簡單，只要打開終端機然後輸入:
 
@@ -12,16 +12,16 @@ meteor create simple-todos
 
 ```
 client/main.js        
-# 前端進入點
+# 瀏覽器進入點
 
 client/main.html      
-# 負責定義網頁模板的html檔
+# 負責定義網頁模板的HTML檔
 
 client/main.css       
-# 負責定義網頁樣式的css檔
+# 負責定義網頁樣式的CSS檔
 
 server/main.js        
-# 後端進入點
+# 伺服器進入點
 
 package.json          
 # 安裝各種NPM套件的設定檔
