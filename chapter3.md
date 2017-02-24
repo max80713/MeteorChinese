@@ -69,7 +69,7 @@ import '../imports/ui/body.js';
 
 Meteor解析HTML檔案時，只認得三大主要標籤`<head>`、`<body>`、`<template>`。所有放在`<template>`標籤裡頭的程式碼都會被編譯成Meteor的模板\(template\)，這些模板可以在HTML檔裡透過`{{>templateName}}`或是在JS檔裡透過`Template.templateName`的方式引用。而`<body>`則可以透過 `Template.body`來引用，可以把它想最上層的模板\(template\)，能夠包住任何其他的模板。
 
-### 在模板中加入代辦事項 {#addinglogicanddatatotemplates}
+### 在模板中加入資料 {#addinglogicanddatatotemplates}
 
 所有在HTML檔裡的程式碼都會被[Meteor's Spacebars compiler](https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md)編譯。Spacebars可以識別被雙重大括號包起來的敘述，像是`{{#each}}`還有`{{#if}}`，讓你可以在App的畫面上呈現資料。而資料則是在JS檔裡透過helpers把傳到模板裡。
 
