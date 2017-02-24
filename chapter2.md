@@ -2,7 +2,7 @@
 
 本教學的目標是要帶領大家做出一個可以同時多人使用的"待辦事項管理App"。
 
-首先要建立一個樣板App，非常簡單，只要打開終端機然後輸入:
+首先要建立一個範本App，非常簡單，只要打開終端機然後輸入:
 
 ```
 meteor create simple-todos
@@ -47,7 +47,7 @@ meteor
 
 ### ES2015 JavaScript 特性 {#es2015javascriptfeatures}
 
-在這個樣板App的檔案中或是在接下來的教學中，你可能會看到一些不熟悉的JavaScript語法，那是因為Meteor本身搭載並且支援ES2015 JavaScript的新語法，包含以下特性:
+在這個範本App的檔案中或是在接下來的教學中，你可能會看到一些不熟悉的JavaScript語法，那是因為Meteor本身搭載並且支援ES2015 JavaScript的新語法，包含以下特性:
 
 1. 箭頭函數: `(arg) => {return result;}`
 2. 簡式函數: `render() { ... }`
@@ -61,5 +61,5 @@ meteor
 
 * [Nikolas C. Zakas "Understanding ECMAScript 6"](https://github.com/nzakas/understandinges6)
 
-現在你已經會簡單的修改了，接下來會帶各位一步步來完成我們的"待辦事項管理"App。
+現在你已經會簡單的修改了，接下來會帶各位一步步來完成我們的"待辦事項管理App"。
 
