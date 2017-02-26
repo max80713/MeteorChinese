@@ -4,13 +4,17 @@
 
 首先，我們先把HTML檔的`<body>`移除，只留下`<head>`標籤:
 
+[client/main.html»](https://github.com/meteor/simple-todos/commit/f00a06c7c5e14b46f8c1c4b57b8308470ae4131b)
+
 ```
 <head>
   <title>simple</title>
 </head>
 ```
 
-再來我們新建一個資料夾`imports`，並且在這個資料夾底下再建立一個資料夾`ui`，然後在這個資料夾底下新增一個檔案`body.html`:
+再來我們新增一些檔案到`imports/`底下:
+
+[imports/ui/body.html»](https://github.com/meteor/simple-todos/commit/d76d39724777bf82d31f70f3ded8de3659d0ba0f)
 
 ```
 <body>
@@ -31,7 +35,7 @@
 </template>
 ```
 
-以及`body.js`:
+[imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/81b442e117eb61469eef1b783552820aad769b08)
 
 ```
 import { Template } from 'meteor/templating';
@@ -49,6 +53,8 @@ Template.body.helpers({
 資料夾`imports`底下的檔案必須載入\(import\)才會在啟動App的時候被執行，所以我們需要在前端網頁的進入點`client/main.js`
 
 載入它們\(先刪掉裡面所有本來的程式碼\):
+
+[client/main.js»](https://github.com/meteor/simple-todos/commit/0ee65568d41f16915c4d1271ac307a1a362fb253)
 
 ```
 import '../imports/ui/body.js';
