@@ -1,86 +1,64 @@
-# 用模板\(template\)來建立畫面\(view\) {#definingviewswithtemplates}
+# 將待辦事項存入集合\(collection\) {#storingtasksinacollection}
 
-現在讓我們來修改一下上一章自動產出的程式碼，修改完之後再來談談細節。
+Meteor使用集合\(collections\)來儲存資料。集合最重要的特性就是瀏覽器端和伺服器端都可以對它做存取，我們不需要在伺服器端寫一大堆程式碼就可以將資料呈現在瀏覽器上。除此之外，集合也會自動更新，所以包含集合的模板就會自動呈現最新的資料。
 
-首先，我們先把HTML檔的`<body>`移除，只留下`<head>`標籤:
+你可以參考[Collections article](http://guide.meteor.com/collections.html)這篇文章來瞭解集合\(collection\)的用法。
 
-[client/main.html»](https://github.com/meteor/simple-todos/commit/f00a06c7c5e14b46f8c1c4b57b8308470ae4131b)
+要建立一個新的集合非常簡單，只要在JS檔中呼叫`MyCollection = new Mongo.Collection("my-collection");`，在伺服器端就會建立一個叫做`my-collection`的Mongo集合，而在瀏覽器端，則會建立一份連接到伺服器集合的暫存集合。我們在第12章會更深入探討伺服器端和瀏覽器端的區隔 ，目前我們先假裝整個資料庫只存在在瀏覽器端。
 
-```
-<head>
-  <title>simple</title>
-</head>
-```
+我們定義了一個新的模組`task.js`來建立一個Mongo集合並且匯出\(export\)它:
 
-再來我們新增一些檔案到`imports/`底下:
-
-[imports/ui/body.html»](https://github.com/meteor/simple-todos/commit/d76d39724777bf82d31f70f3ded8de3659d0ba0f)
+[imports/api/tasks.js»](https://github.com/meteor/simple-todos/commit/9ee57a11d41eac7791920a24497bef8716a6301f)
 
 ```
-<body>
-  <div class="container">
-    <header>
-      <h1>Todo List</h1>
-    </header>
-    <ul>
-      {{#each tasks}}
-        {{> task}}
-      {{/each}}
-    </ul>
-  </div>
-</body>
+import { Mongo } from 'meteor/mongo';
 
-<template name="task">
-  <li>{{text}}</li>
-</template>
+export const Tasks = new Mongo.Collection('tasks');
 ```
 
-[imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/81b442e117eb61469eef1b783552820aad769b08)
+這邊特別注意，我們另外新建了一個`imports/api`目錄，並且將這個新增的模組放在底下。這個目錄底下專門放置所有的API，包含我們會用到的集合\(collections\)還有之後會加入的發佈\(publications\)以及方法\(methods\)。如果你想了解`import`的作用或是如何管理程式碼檔案的資料夾結構，可以參考Meteor指南裡的[Application Structure article](http://guide.meteor.com/structure.html)。
+
+再來我們在伺服器端載入這個模組，這個動作將會自動為我們新增一個Mongo的集合，並且建立連結來讓瀏覽器取得資料:
+
+[server/main.js»](https://github.com/meteor/simple-todos/commit/96f0e2a82fa51aeb72170c2fb30814245806fd1c)
+
+```
+import '../imports/api/tasks.js';
+```
+
+然後修改瀏覽器端的JS檔來從集合中取得待辦事項的資料，取代之前從固定的陣列中取得資料的方式:
+
+[imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/f345b40d5bf55026d8bb72a771971d06f6cec25e)
 
 ```
 import { Template } from 'meteor/templating';
+import { Tasks } from '../api/tasks.js';
 import './body.html';
 
 Template.body.helpers({
-  tasks: [
-    { text: 'This is task 1' },
-    { text: 'This is task 2' },
-    { text: 'This is task 3' },
-  ],
+  tasks() {
+    return Tasks.find({});
+  },
 });
 ```
 
-資料夾`imports`底下的檔案必須載入\(import\)才會在啟動App的時候被執行，所以我們需要在前端網頁的進入點`client/main.js`
+當你修改完之後，你會發現本來在清單中的待辦事項都不見了!那是因為我們的資料庫目前還是空的，所以我們必須手動輸入一些待辦事項。
 
-載入它們\(先刪掉裡面所有本來的程式碼\):
+### 從「伺服器端資料庫主控台」新增待辦事項 {#insertingtasksfromtheserversidedatabaseconsole}
 
-[client/main.js»](https://github.com/meteor/simple-todos/commit/0ee65568d41f16915c4d1271ac307a1a362fb253)
+集合裡的每一筆資料叫做文件\(document\)。我們現在使用伺服器資料庫主控台來新增一些文件到集合\(collection\)裡。打開終端機，進到你的App目錄底下然後輸入:
 
 ```
-import '../imports/ui/body.js';
+meteor mongo
 ```
 
-如果你想了解`import`的作用或是如何管理程式碼檔案的資料夾結構，可以參考Meteor指南裡的[Application Structure article](http://guide.meteor.com/structure.html)。
+這樣將會打開主控台，並且連到你的App在本地端的資料庫，然後再輸入:
 
-現在在瀏覽器上，你的App大致上看起來會是以下這個樣子:
+```
+db.tasks.insert({ text: "Hello world!", createdAt: newDate() });
+```
 
-> #### Todo List {#todolist}
->
-> * This is task 1
-> * This is task 2
-> * This is task 3
+這個時候頁面上出現一條新的待辦事項!我們不需要寫任何的程式碼來將瀏覽器端連接到伺服器端的資料庫，Meteor會自動幫你更新。
 
-我們來解釋一下目前這些程式碼的功能。
-
-### Meteor中的HTML檔案負責建立模板\(template\) {#htmlfilesinmeteordefinetemplates}
-
-Meteor讀取HTML檔案時，只認得三大主要標籤`<head>`、`<body>`、`<template>`。所有放在`<template>`標籤裡頭的程式碼都會被編譯成Meteor的模板\(template\)，這些模板可以在HTML檔裡透過`{{>templateName}}`或是在JS檔裡透過`Template.templateName`的方式引用。而`<body>`則可以透過 `Template.body`來引用，可以把它想成是最上層的模板\(template\)，能夠包住任何其他的模板。
-
-### 在模板中加入資料 {#addinglogicanddatatotemplates}
-
-所有在HTML檔裡的程式碼都會被[Meteor's Spacebars compiler](https://github.com/meteor/meteor/blob/devel/packages/spacebars/README.md)編譯。Spacebars可以識別被雙重大括號包起來的敘述，像是`{{#each}}`還有`{{#if}}`，讓你可以在App的畫面上呈現資料。而資料則是在JS檔裡透過helpers傳到模板裡。
-
-在上方的程式碼中，我們在`Template.body`中建立了一個叫做`tasks`的helper，這個helper傳送了一個資料陣列\(array\)到`<body>`標籤中。 所以我們可以在`<body>`裡使用`{{#each tasks}}`將陣列中的每一筆資料插入`task`模板，並且在`#each`的區塊裡，透過`{{text}}`顯示text屬性所對應的值。
-
-在下一章，我們將會介紹如何使用helpers來將資料從資料庫中呈現到模板上。
+你現在可以透過更改`text`的值來新增幾條不同內容的待辦事項。在下一章，我們將會介紹如何在頁面上加入「新增」的功能，來取代使用資料庫主控台新增的方式。
 
