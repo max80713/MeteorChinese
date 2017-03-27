@@ -11,141 +11,21 @@ Add hide-completed checkbox to HTML
 [imports/ui/body.html»](https://github.com/meteor/simple-todos/commit/4bfaa6f070101cb0caf35ab30343e1126b0e6701)
 
 ```
-3
-```
-
-```
-4
-```
-
-```
-5
-```
-
-```
-6
-```
-
-```
-7
-```
-
-```
-8
-```
-
-```
-9
-```
-
-```
-10
-```
-
-```
-11
-```
-
-```
-12
-```
-
-```
-13
-```
-
-```
-<
-header
->
-```
-
-```
-<
-h1
->
-Todo List
-<
-/
-h1
->
-```
-
-```
-
-```
-
-```
-<
-label
-class
-=
-"hide-completed"
->
-```
-
-```
-<
-input
-type
-=
-"checkbox"
- /
->
-```
-
-```
-        Hide Completed Tasks
-```
-
-```
-<
-/
-label
->
-```
-
-```
-
-```
-
-```
-<
-form
-class
-=
-"new-task"
->
-```
-
-```
-<
-input
-type
-=
-"text"
-name
-=
-"text"
-placeholder
-=
-"Type to add new tasks"
- /
->
-```
-
-```
-<
-/
-form
->
+<header>
+  <h1>Todo List</h1>
+  <label class="hide-completed">
+    <input type="checkbox" />Hide Completed Tasks
+  </label>
+  
+  <form class="new-task">
+    <input type="text" name="text" placeholder="Type to add new tasks" />
+  </form>
 ```
 
 Now we need to add the`reactive-dict`package:
 
 ```
 meteor add reactive-dict
-
 ```
 
 Then we need to set up a new`ReactiveDict`and attach it to the body template instance \(as this is where we'll store the checkbox's state\) when it is first created:
@@ -157,140 +37,19 @@ Add state dictionary to the body
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/349bd90805ba098d08c9445c00fb6776f2cb8b08)
 
 ```
-1
-```
+import { Template } from 'meteor/templating';
+import { ReactiveDict } from 'meteor/reactive-dict';
+import { Tasks } from '../api/tasks.js';
+import './task.js';
+import './body.html';
 
-```
-2
-```
-
-```
-3
-```
-
-```
-4
-```
-
-```
-5
-```
-
-```
-6
-```
-
-```
-7
-```
-
-```
-8
-```
-
-```
-9
-```
-
-```
-10
-```
-
-```
-11
-```
-
-```
-12
-```
-
-```
-13
-```
-
-```
-14
-```
-
-```
-15
-```
-
-```
-import { Template } from 
-'meteor/templating'
-;
-```
-
-```
-import { ReactiveDict } from 
-'meteor/reactive-dict'
-;
-```
-
-```
-
-```
-
-```
-import { Tasks } from 
-'../api/tasks.js'
-;
-```
-
-```
-
-```
-
-```
-import 
-'./task.js'
-;
-```
-
-```
-import 
-'./body.html'
-;
-```
-
-```
-
-```
-
-```
-Template.body.onCreated(
-function
-bodyOnCreated
-()
-{
-```
-
-```
-this
-.state = 
-new
- ReactiveDict();
-```
-
-```
+Template.body.onCreated(functionbodyOnCreated() {
+  this.state = new ReactiveDict();
 });
-```
 
-```
-
-```
-
-```
 Template.body.helpers({
-```
-
-```
   tasks() {
-```
-
-```
-// Show newest tasks at the top
+  // Show newest tasks at the top
 ```
 
 Then, we need an event handler to update the`ReactiveDict`variable when the checkbox is checked or unchecked. An event handler takes two arguments, the second of which is the same template instance which was`this`in the`onCreated`callback:
@@ -302,63 +61,13 @@ Add event handler for checkbox
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/caa11a11d808123299380ee26229c9f358ba1775)
 
 ```
-35
-```
-
-```
-36
-```
-
-```
-37
-```
-
-```
-38
-```
-
-```
-39
-```
-
-```
-40
-```
-
-```
-41
-```
-
-```
-// Clear form
-```
-
-```
-    target.text.value = 
-''
-;
-```
-
-```
+    // Clear form
+    target.text.value = '';
   },
-```
-
-```
-'change .hide-completed input'
-(event, instance) {
-```
-
-```
-    instance.state.set(
-'hideCompleted'
-, event.target.checked);
-```
-
-```
+  
+  'change .hide-completed input'(event, instance) {
+    instance.state.set('hideCompleted', event.target.checked);
   },
-```
-
-```
 });
 ```
 
@@ -371,110 +80,16 @@ Add helpers to body template
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/10e30f2ff2b42a53bd675433f65d21ac2beb679e)
 
 ```
-12
-```
-
-```
-13
-```
-
-```
-14
-```
-
-```
-15
-```
-
-```
-16
-```
-
-```
-17
-```
-
-```
-18
-```
-
-```
-19
-```
-
-```
-20
-```
-
-```
-21
-```
-
-```
-22
-```
-
-```
-23
-```
-
-```
-
-```
-
-```
 Template.body.helpers({
-```
-
-```
   tasks() {
-```
-
-```
-const
- instance = Template.instance();
-```
-
-```
-if
- (instance.state.get(
-'hideCompleted'
-)) {
-```
-
-```
-// If hide completed is checked, filter tasks
-```
-
-```
-return
- Tasks.find({ checked: { $ne: 
-true
- } }, { sort: { createdAt: -
-1
- } });
-```
-
-```
+    const instance = Template.instance();
+    if(instance.state.get('hideCompleted')) {
+      // If hide completed is checked, filter tasks
+      return Tasks.find({ checked: { $ne: true } }, { sort: { createdAt: -1 } });
     }
-```
-
-```
-// Otherwise, return all of the tasks
-```
-
-```
-return
- Tasks.find({}, { sort: { createdAt: -
-1
- } });
-```
-
-```
+    // Otherwise, return all of the tasks
+    return Tasks.find({}, { sort: { createdAt: -1 } });
   },
-```
-
-```
 });
 ```
 
@@ -497,80 +112,15 @@ Add incompleteCount helper to body
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/79b34c54716abd5aaa1a5d9f5068a8bd7c24e35b)
 
 ```
-20
-```
-
-```
-21
-```
-
-```
-22
-```
-
-```
-23
-```
-
-```
-24
-```
-
-```
-25
-```
-
-```
-26
-```
-
-```
-27
-```
-
-```
-28
-```
-
-```
-// Otherwise, return all of the tasks
-```
-
-```
-return
- Tasks.find({}, { sort: { createdAt: -
-1
- } });
-```
-
-```
+    // Otherwise, return all of the tasks
+    return Tasks.find({}, { sort: { createdAt: -1 } });
   },
-```
-
-```
+  
   incompleteCount() {
-```
-
-```
-return
- Tasks.find({ checked: { $ne: 
-true
- } }).count();
-```
-
-```
+    return Tasks.find({ checked: { $ne: true } }).count();
   },
-```
-
-```
 });
-```
 
-```
-
-```
-
-```
 Template.body.events({
 ```
 
@@ -581,86 +131,12 @@ Display incompleteCount
 [imports/ui/body.html»](https://github.com/meteor/simple-todos/commit/b26b4d486c9136a3db7beb5d63759b7fa1cdf0b3)
 
 ```
-1
-```
-
-```
-2
-```
-
-```
-3
-```
-
-```
-4
-```
-
-```
-5
-```
-
-```
-6
-```
-
-```
-7
-```
-
-```
-<
-body
->
-```
-
-```
-<
-div
-class
-=
-"container"
->
-```
-
-```
-<
-header
->
-```
-
-```
-<
-h1
->
-Todo List ({{incompleteCount}})
-<
-/
-h1
->
-```
-
-```
-
-```
-
-```
-<
-label
-class
-=
-"hide-completed"
->
-```
-
-```
-<
-input
-type
-=
-"checkbox"
- /
->
+<body>
+  <div class="container">
+    <header>
+      <h1>Todo List ({{incompleteCount}})</h1>
+      <label class="hide-completed">
+      <input type="checkbox" />
 ```
 
 
