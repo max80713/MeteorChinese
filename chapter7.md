@@ -24,7 +24,7 @@
 meteor add reactive-dict
 ```
 
-然後我們需要設置一個新的`ReactiveDict`並且在body模板物件第一次被建立的時候附加上去，我們將會把勾選框的狀態存在這個`ReactiveDict`中:
+然後設置一個新的`ReactiveDict`並且在body模板物件第一次被建立的時候附加上去，我們將會把勾選框的狀態存在這個`ReactiveDict`中:
 
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/349bd90805ba098d08c9445c00fb6776f2cb8b08)
 
@@ -44,11 +44,7 @@ Template.body.helpers({
   // Show newest tasks at the top
 ```
 
-Then, we need an event handler to update the`ReactiveDict`variable when the checkbox is checked or unchecked. An event handler takes two arguments, the second of which is the same template instance which was`this`in the`onCreated`callback:
-
-**7.4**
-
-Add event handler for checkbox
+之後我們需要一個事件處理器\(event handler\)，當勾選框被勾選或取消勾選的時候來更新`ReactiveDict`變數。一個事件處理器接收兩個參數，其中第二個參數和`onCreated`函數中的`this`所代表的是同樣的模板物件:
 
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/caa11a11d808123299380ee26229c9f358ba1775)
 
