@@ -1,4 +1,4 @@
-# Storing temporary UI state in a Reactive Dictionary {#storingtemporaryuistateinareactivedictionary}
+# 將使用者介面狀態儲存於響應式字典\(Reactive Dictionary\) {#storingtemporaryuistateinareactivedictionary}
 
 In this step, we'll add a client-side data filtering feature to our app, so that users can check a box to only see incomplete tasks. We're going to learn how to use a[`ReactiveDict`](https://atmospherejs.com/meteor/reactive-dict)to store temporary reactive state on the client. A`ReactiveDict`is like a normal JS object with keys and values, but with built-in reactivity.
 
@@ -16,7 +16,7 @@ Add hide-completed checkbox to HTML
   <label class="hide-completed">
     <input type="checkbox" />Hide Completed Tasks
   </label>
-  
+
   <form class="new-task">
     <input type="text" name="text" placeholder="Type to add new tasks" />
   </form>
@@ -64,7 +64,7 @@ Add event handler for checkbox
     // Clear form
     target.text.value = '';
   },
-  
+
   'change .hide-completed input'(event, instance) {
     instance.state.set('hideCompleted', event.target.checked);
   },
@@ -115,7 +115,7 @@ Add incompleteCount helper to body
     // Otherwise, return all of the tasks
     return Tasks.find({}, { sort: { createdAt: -1 } });
   },
-  
+
   incompleteCount() {
     return Tasks.find({ checked: { $ne: true } }).count();
   },
