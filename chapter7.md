@@ -18,17 +18,13 @@
   </form>
 ```
 
-Now we need to add the`reactive-dict`package:
+再來我們需要加入`reactive-dict`套件:
 
 ```
 meteor add reactive-dict
 ```
 
-Then we need to set up a new`ReactiveDict`and attach it to the body template instance \(as this is where we'll store the checkbox's state\) when it is first created:
-
-**7.3**
-
-Add state dictionary to the body
+然後我們需要設置一個新的`ReactiveDict`並且在body模板物件第一次被建立的時候附加上去，我們將會把勾選框的狀態存在這個`ReactiveDict`中:
 
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/349bd90805ba098d08c9445c00fb6776f2cb8b08)
 
