@@ -1,6 +1,6 @@
-# 將使用者介面狀態儲存於響應式字典\(Reactive Dictionary\) {#storingtemporaryuistateinareactivedictionary}
+# 將使用者介面狀態暫存於響應式字典\(Reactive Dictionary\) {#storingtemporaryuistateinareactivedictionary}
 
-In this step, we'll add a client-side data filtering feature to our app, so that users can check a box to only see incomplete tasks. We're going to learn how to use a[`ReactiveDict`](https://atmospherejs.com/meteor/reactive-dict)to store temporary reactive state on the client. A`ReactiveDict`is like a normal JS object with keys and values, but with built-in reactivity.
+在這個章節，我們將在使用者介面加入篩選功能，讓使用者可以篩選出未完成的待辦事項。我們將學習如何使用響應式字典\([`ReactiveDict`](https://atmospherejs.com/meteor/reactive-dict)\)來暫存客戶端的響應式狀態。`ReactiveDict`就像一般的JavaScript物件，有鍵\(Key\)與對應的值\(Value\)，除此之外，還內建有響應式的特性。
 
 First, we need to add a checkbox to our HTML:
 
