@@ -2,11 +2,7 @@
 
 在這個章節，我們將在使用者介面加入篩選功能，讓使用者可以篩選出未完成的待辦事項。我們將學習如何使用響應式字典\([`ReactiveDict`](https://atmospherejs.com/meteor/reactive-dict)\)來暫存客戶端的響應式狀態。`ReactiveDict`就像一般的JavaScript物件，有鍵\(Key\)與對應的值\(Value\)，除此之外，還內建有響應式的特性。
 
-First, we need to add a checkbox to our HTML:
-
-**7.1**
-
-Add hide-completed checkbox to HTML
+首先，我們在HTML檔裡加入一個勾選框:
 
 [imports/ui/body.html»](https://github.com/meteor/simple-todos/commit/4bfaa6f070101cb0caf35ab30343e1126b0e6701)
 
