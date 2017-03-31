@@ -79,19 +79,15 @@ Template.body.helpers({
 
 現在只要我們點擊勾選框，待辦事項清單就只會顯示未完的待辦事項囉!
 
-### ReactiveDicts are reactive data stores for the client {#reactivedictsarereactivedatastoresfortheclient}
+### 響應式字典 {#reactivedictsarereactivedatastoresfortheclient}
 
-Until now, we have stored all of our state in collections, and the view updated automatically when we modified the data inside these collections. This is because Mongo.Collection is recognized by Meteor as a_reactive data source_, meaning Meteor knows when the data inside has changed.`ReactiveDict`is the same way, but is not synced with the server like collections are. This makes a`ReactiveDict`a convenient place to store temporary UI state like the checkbox above. Just like with collections, we don't have to write any extra code for the template to update when the`ReactiveDict`variable changes — just calling`instance.state.get(...)`inside the helper is enough.
+到目前為止，我們將資料儲存於集合\(collections\)中，當我們修改集合中的資料時，網頁畫面就會自動更新。這是因為Mongo的集合為響應式的資料庫，也就是說只要資料有變動Meteor就會知道。`ReactiveDict`也是同樣的原理，但和集合不同的地方在於`ReactiveDict`並非像集合一樣與伺服器端同步，這讓`ReactiveDict`本身擁有可以暫時儲存使用者介面狀態的優點，就好比我們剛剛使用它來儲存勾選框的狀態，同時它也擁有像集合一樣的優點，我們不需要再寫額外的程式碼來當`ReactiveDict`的變數改變時主動去更新模板，我們只需要在輔助器\(helper\)中呼叫`instance.state.get(...)`即可。
 
-You can read more about patterns for writing components in the[Blaze article](http://guide.meteor.com/blaze.html)of the Meteor Guide.
+如果想更深入了解Meteor的設計模式，可以參考[Blaze article](http://guide.meteor.com/blaze.html)。
 
-### One more feature: Showing a count of incomplete tasks {#onemorefeatureshowingacountofincompletetasks}
+### 顯示未完成待辦事項的數量 {#onemorefeatureshowingacountofincompletetasks}
 
-Now that we have written a query that filters out completed tasks, we can use the same query to display a count of the tasks that haven't been checked off. To do this we need to add a helper and change one line of the HTML.
-
-**7.6**
-
-Add incompleteCount helper to body
+我們剛寫好篩選未完成待辦事項的功能，再來我們可以用類似的方式來取得未完成待辦事項的數量，只要多加一個輔助器\(helper\)並且修改其中一行即可。
 
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/79b34c54716abd5aaa1a5d9f5068a8bd7c24e35b)
 
@@ -107,10 +103,6 @@ Add incompleteCount helper to body
 
 Template.body.events({
 ```
-
-**7.7**
-
-Display incompleteCount
 
 [imports/ui/body.html»](https://github.com/meteor/simple-todos/commit/b26b4d486c9136a3db7beb5d63759b7fa1cdf0b3)
 
