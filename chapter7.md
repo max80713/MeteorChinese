@@ -59,11 +59,7 @@ Template.body.helpers({
 });
 ```
 
-Now, we need to update`Template.body.helpers`. The code below has a new if block to filter the tasks if the checkbox is checked:
-
-**7.5**
-
-Add helpers to body template
+現在我們需要修改一下`Template.body.helpers`，以下的程式碼中新增了一個if區塊，當勾選框被勾選的時候便會篩選待辦事項:
 
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/10e30f2ff2b42a53bd675433f65d21ac2beb679e)
 
