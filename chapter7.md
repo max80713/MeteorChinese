@@ -59,7 +59,7 @@ Template.body.helpers({
 });
 ```
 
-現在我們需要修改一下`Template.body.helpers`，以下的程式碼中新增了一個if區塊，當勾選框被勾選的時候便會篩選待辦事項:
+接著我們需要修改一下`Template.body.helpers`，以下的程式碼中新增了一個if區塊，當勾選框被勾選的時候便會篩選待辦事項:
 
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/10e30f2ff2b42a53bd675433f65d21ac2beb679e)
 
@@ -77,7 +77,7 @@ Template.body.helpers({
 });
 ```
 
-Now if you check the box, the task list will only show tasks that haven't been completed.
+現在只要我們點擊勾選框，待辦事項清單就只會顯示未完的待辦事項囉!
 
 ### ReactiveDicts are reactive data stores for the client {#reactivedictsarereactivedatastoresfortheclient}
 
