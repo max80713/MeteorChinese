@@ -23,7 +23,7 @@ meteor add accounts-ui accounts-password
       </form>
 ```
 
-Then, in your JavaScript, add the following code to configure the accounts UI to use usernames instead of email addresses:
+然後在JavaScript檔裏頭，加入以下的程式碼來修改帳號使用者介面，把電子信箱改成使用者名稱:
 
 [imports/startup/accounts-config.js»](https://github.com/meteor/simple-todos/commit/7c48c9aa89e26eac39cc67046f85e54bab5889fe)
 
