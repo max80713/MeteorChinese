@@ -1,6 +1,6 @@
-# 新增使用者帳號 {#addinguseraccounts}
+# 新增使用者帳戶 {#addinguseraccounts}
 
-Metoer內建帳號系統和登入系統使用者介面來讓你快速地完成會員系統的功能。
+Metoer內建帳戶系統和登入系統使用者介面來讓你快速地完成會員系統的功能。
 
 我們必須加入相關套件來開啟這些功能。在你的App資料夾底下，輸入:
 
@@ -23,7 +23,7 @@ meteor add accounts-ui accounts-password
       </form>
 ```
 
-然後在JavaScript檔裏頭，加入以下的程式碼來修改帳號使用者介面，把電子信箱改成使用者名稱:
+然後在JavaScript檔裏頭，加入以下的程式碼來修改帳戶使用者介面，把電子信箱改成使用者名稱:
 
 [imports/startup/accounts-config.js»](https://github.com/meteor/simple-todos/commit/7c48c9aa89e26eac39cc67046f85e54bab5889fe)
 
@@ -43,7 +43,7 @@ import '../imports/startup/accounts-config.js';
 import '../imports/ui/body.js';
 ```
 
-Now users can create accounts and log into your app! This is very nice, but logging in and out isn't very useful yet. Let's add two functions:
+現在使用者可以建立帳戶並且登入你的App了! This is very nice, but logging in and out isn't very useful yet. Let's add two functions:
 
 1. Only display the new task input field to logged in users
 2. Show which user created each task

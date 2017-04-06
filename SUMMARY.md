@@ -9,5 +9,5 @@
 * [5.更新\(update\)與刪除\(remove\)](chapter5.md)
 * [6.在手機上執行App](chapter6.md)
 * [7.暫存使用者介面狀態\(UI State\)](chapter7.md)
-* [8.新增使用者帳號](chapter8.md)
+* [8.新增使用者帳戶](chapter8.md)
 
