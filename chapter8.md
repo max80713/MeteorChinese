@@ -8,7 +8,7 @@ Metoer內建帳號系統和登入系統使用者介面來讓你快速地完成�
 meteor add accounts-ui accounts-password
 ```
 
-In the HTML, right under the checkbox, include the following code to add a login dropdown:
+在HTML檔裏頭，加入以下的程式碼來在頁面上新增一個登入的下拉式選單:
 
 [imports/ui/body.html»](https://github.com/meteor/simple-todos/commit/bc9fb936699c1ce8a0643e5c563043d560a04811)
 
