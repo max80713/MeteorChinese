@@ -103,7 +103,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 現在，使用者可以登入並且知道每個待辦事項是被哪個使用者新增的了!讓我們來瞭解一下以上這些功能的細節吧!
 
-### 自動化的帳戶系統使用者介面Automatic accounts UI {#automaticaccountsui}
+### 自動化的帳戶系統使用者介面 {#automaticaccountsui}
 
 如果你的App有`accounts-ui`套件，我們只要透過`{{>loginButtons}}` 幫助器\(helper\)來套入`loginButtons`模板就可以在頁面上建立一個登入的下拉式選單。這個下拉式選單會偵測App加入了那些登入方法並且顯示適當的控制項。在這個例子中，我們只加入了`accounts-password`這個登入方法套件，所以下拉式選單顯示了密碼輸入欄位。你可以試著加入其他的登入方法套件，例如:加入`accounts-facebook`這個套件可以使用臉書帳戶來登入你的App，下拉式選單便會顯示臉書的按鈕。
 
