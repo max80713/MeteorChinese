@@ -1,8 +1,8 @@
-# Adding user accounts {#addinguseraccounts}
+# 新增使用者帳號 {#addinguseraccounts}
 
-Meteor comes with an accounts system and a drop-in login user interface that lets you add multi-user functionality to your app in minutes.
+Metoer內建帳號系統和登入系統使用者介面來讓你快速地完成會員系統的功能。
 
-To enable the accounts system and UI, we need to add the relevant packages. In your app directory, run the following command:
+我們必須載入相關套件來開啟這些功能。在你的App資料夾底下，輸入:
 
 ```
 meteor add accounts-ui accounts-password
@@ -78,7 +78,6 @@ Then, in our HTML, add an`#if`block helper to only show the form when there is a
 [imports/ui/body.html»](https://github.com/meteor/simple-todos/commit/7083c5b56ba521ed7f34a7039bb3510e6f522534)
 
 ```
-
       {{> loginButtons}}
       {{#if currentUser}}
         <form class="new-task">
@@ -86,7 +85,7 @@ Then, in our HTML, add an`#if`block helper to only show the form when there is a
         </form>
       {{/if}}
     </header>
-    
+
     <ul>
 ```
 
@@ -95,9 +94,8 @@ Finally, add a Spacebars statement to display the`username`field on each task ri
 [imports/ui/task.html»](https://github.com/meteor/simple-todos/commit/da75b1705c5d5ae3470f47406c261d4303f95a87)
 
 ```
-
     <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-    
+
     <span class="text"><strong>{{username}}</strong> - {{text}}</span>
   </li>
 </template>
