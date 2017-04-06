@@ -111,7 +111,7 @@ import { ReactiveDict } from 'meteor/reactive-dict';
 
 在HTML檔裡頭，你可以使用內建的`{{currentUser}}`幫助器\(helper\)來檢查使用者是否登入並且取得登入使用者資訊。例如:透過`{{currentUser.username}}`取得並顯示登入使用者名稱。
 
-在JavaScript程式碼中，你可以透過`Meteor.userId()`來取得目前使用者`_id` 或是`Meteor.user()`來取得整個使用者的文件\(document\)。
+在JavaScript程式碼中，你可以透過`Meteor.userId()`來取得目前使用者`_id` 或是`Meteor.user()`來取得目前使用者的整個文件\(document\)。
 
 在下一章，我們將會學到如何在伺服器端驗證我們的資料來讓我們App更具安全性。
 
