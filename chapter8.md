@@ -2,7 +2,7 @@
 
 Metoer內建帳號系統和登入系統使用者介面來讓你快速地完成會員系統的功能。
 
-我們必須載入相關套件來開啟這些功能。在你的App資料夾底下，輸入:
+我們必須加入相關套件來開啟這些功能。在你的App資料夾底下，輸入:
 
 ```
 meteor add accounts-ui accounts-password
@@ -34,7 +34,7 @@ Accounts.ui.config({
 });
 ```
 
-We'll need to import that configuration from our\_client-side JavaScript entrypoint\_also:
+我們還需要在客戶端的JavaScript程式進入點載入相關套件:
 
 [client/main.js»](https://github.com/meteor/simple-todos/commit/47fde1a42d5d6d1b765b2f16d0f0cc48e0567be1)
 
