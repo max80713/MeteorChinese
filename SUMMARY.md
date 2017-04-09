@@ -11,4 +11,5 @@
 * [7.暫存使用者介面狀態\(UI State\)](chapter7.md)
 * [8.新增使用者帳戶](chapter8.md)
 * [9.使用方法\(Methods\)來增加安全性](chapter9.md)
+* [10.發佈\(Publish\)與訂閱\(subscribe\)](chapter10.md)
 
