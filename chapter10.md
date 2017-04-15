@@ -1,6 +1,6 @@
 # 透過發佈\(Public\)與訂閱\(Subscribe\)來篩選資料 {#filteringdatawithpublishandsubscribe}
 
-我們已經把敏感的程式碼移動到方法\(Method\)裡，現在我需要學習其他Meteor安全性的措施。到目前為止，我們都把整個資料庫當作是在客戶端，也就是說只要我們呼叫`Tasks.find()`we will get every task in the collection. That's not good if users of our application want to store privacy-sensitive data. We need a way of controlling which data Meteor sends to the client-side database.
+我們已經把敏感的程式碼移動到方法\(Method\)裡，現在我需要學習其他Meteor安全性的措施。到目前為止，我們都把整個資料庫當作是在客戶端，也就是說只要我們呼叫`Tasks.find()`，我們會從集合\(collection\)中得到所有的待辦事項。That's not good if users of our application want to store privacy-sensitive data. We need a way of controlling which data Meteor sends to the client-side database.
 
 Just like with`insecure`in the last step, all new Meteor apps start with the`autopublish`package. Let's remove it and see what happens:
 
