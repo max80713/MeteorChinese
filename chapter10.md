@@ -1,16 +1,16 @@
-# 透過發佈\(Public\)與訂閱\(Subscribe\)來篩選資料 {#filteringdatawithpublishandsubscribe}
+# 透過發佈\(Publish\)與訂閱\(Subscribe\)來篩選資料 {#filteringdatawithpublishandsubscribe}
 
-我們已經把敏感的程式碼移動到方法\(Method\)裡，現在我需要學習其他Meteor安全性的措施。到目前為止，我們都把整個資料庫當作是在客戶端，也就是說只要我們呼叫`Tasks.find()`，我們會從集合\(collection\)中得到所有的待辦事項。That's not good if users of our application want to store privacy-sensitive data. We need a way of controlling which data Meteor sends to the client-side database.
+我們已經把敏感的程式碼移動到方法\(Method\)裡，現在我需要學習其他Meteor提升安全性的措施。到目前為止，我們都把整個資料庫當作是在客戶端，也就是說只要我們呼叫`Tasks.find()`，我們會從集合\(collection\)中得到所有的待辦事項。如果使用者想要儲存一些私密的資料將會非常沒有隱私，我們需要控制哪些資料會被送到客戶端的資料庫。
 
-Just like with`insecure`in the last step, all new Meteor apps start with the`autopublish`package. Let's remove it and see what happens:
+就像上一個章節提到的`insecure`套件，所有Meteor的App也都預設有`autopublish`套件.。我們試著移除它並且看看會發生什麼事:
 
 ```
 meteor remove autopublish
 ```
 
-When the app refreshes, the task list will be empty. Without the`autopublish`package, we will have to specify explicitly what the server sends to the client. The functions in Meteor that do this are`Meteor.publish`and`Meteor.subscribe`.
+當我們重新整理網頁，待辦事項都不見了!沒有了`autopublish`這個套件，我們就必須透過`Meteor.publish`和`Meteor.subscribe`來告訴伺服器端要送那些資料到客戶端。
 
-First lets add a publication for all tasks:
+首先，我們試著發佈\(publish\)所有的待辦事項:
 
 [imports/api/tasks.js»](https://github.com/meteor/simple-todos/commit/09284b4286add29217f39a59c7b7c63b93d6a74f)
 
@@ -29,7 +29,7 @@ Meteor.methods({
     check(text, String);
 ```
 
-And then let's subscribe to that publication when the`body`template is created:
+當`body`模板建立完成之後，訂閱\(subscribe\)所有的待辦事項:
 
 [imports/ui/body.js»](https://github.com/meteor/simple-todos/commit/cf3557458e16d0477f61cd2cdc5d07adbe225de6)
 
@@ -42,15 +42,15 @@ Template.body.onCreated(function bodyOnCreated() {
 Template.body.helpers({
 ```
 
-Once you have added this code, all of the tasks will reappear.
+只要增加以上的程式碼，所以的待辦事項會重新出現。
 
-Calling`Meteor.publish`on the server registers a\_publication\_named`"tasks"`. When`Meteor.subscribe`is called on the client with the publication name, the client\_subscribes\_to all the data from that publication, which in this case is all of the tasks in the database. To truly see the power of the publish/subscribe model, let's implement a feature that allows users to mark tasks as "private" so that no other users can see them.
+在伺服器端呼叫`Meteor.publish`會建立一個發佈叫`"tasks"`，然後在客戶端呼叫`Meteor.subscribe`並且傳入發佈的名字作為參數，客戶端將訂閱所有發佈的資料，在這個例子中這些資料就是資料庫中所有的待辦事項。接下來我們嘗試讓使用者可以將待辦事項設為"非公開"\(private\)，讓其他使用者看不到該待辦事項。
 
-You can read more about publications in the[Data Loading article](http://guide.meteor.com/data-loading.html)of the Meteor Guide.
+如果你想深入了解發佈\(publications\)，可以參考[Data Loading article](http://guide.meteor.com/data-loading.html)。
 
-### Implementing private tasks {#implementingprivatetasks}
+### 將待辦事項設為非公開 {#implementingprivatetasks}
 
-First, let's add another property to tasks called "private" and a button for users to mark a task as private. This button should only show up for the owner of a task. It will display the current state of the item.
+首先，我們在每個待辦事項顯示"private"或是"public"來告訴使用者該待辦事項是否為公開的，並且在頁面上新增一個按鈕讓使用者來將待辦事項設為非公開。這個按鈕只顯示給該待辦事項的擁有者看到:
 
 [imports/ui/task.html»](https://github.com/meteor/simple-todos/commit/559e0285e8d2ff713e00997b6f95463433fffa40)
 
@@ -72,7 +72,7 @@ First, let's add another property to tasks called "private" and a button for use
 </template>
 ```
 
-Let's make sure our task has a special class if it is marked private:
+如果該待辦事項被標記為非公開，就將它加入一個private的類別:
 
 [imports/ui/task.html»](https://github.com/meteor/simple-todos/commit/0518f1f4682540652dfabb104fe9f8274ecab735)
 
@@ -86,7 +86,7 @@ Let's make sure our task has a special class if it is marked private:
 <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 ```
 
-We need to modify our JavaScript code in three places:
+接下來在三個不同的地方修改我們JavaScript的程式碼:
 
 [imports/ui/task.js»](https://github.com/meteor/simple-todos/commit/5f5dfb0eda840c8e796e07696e8412385453ead6)
 
@@ -134,9 +134,9 @@ Template.task.events({
 });
 ```
 
-### Selectively publishing tasks based on privacy status {#selectivelypublishingtasksbasedonprivacystatus}
+### 根據權限來發佈待辦事項 {#selectivelypublishingtasksbasedonprivacystatus}
 
-Now that we have a way of setting which tasks are private, we should modify our publication function to only send the tasks that a user is authorized to see:
+現在使用者已經可以將待辦事項標記為非公開，再來我們要修改我們的發佈函數\(publication function\)來告訴伺服器端只將使用者有權限可以看到的待辦事項送到客戶端:
 
 [imports/api/tasks.js»](https://github.com/meteor/simple-todos/commit/1501ba07e7032887345eddef0fe542bfc8a21283)
 
@@ -155,11 +155,11 @@ if (Meteor.isServer) {
 }
 ```
 
-To test that this functionality works, you can use your browser's private browsing mode to log in as a different user. Put the two windows side by side and mark a task private to confirm that the other user can't see it. Now make it public again and it will reappear!
+你可以使用瀏覽器的無痕模式來開啟兩個視窗，並且用不同的使用者帳號登入來測試這個功能。將這兩個視窗擺在一起，然後在其中一個視窗將某個待辦事項設為非公開，這個待辦事項在另外一個視窗就會被隱藏起來，如果重新設為公開就會重新出現囉!
 
-### Extra method security {#extramethodsecurity}
+### 加入更完整的安全措施 {#extramethodsecurity}
 
-In order to finish up our private task feature, we need to add checks to our`deleteTask`and`setChecked`methods to make sure only the task owner can delete or check off a private task:
+我們在`deleteTask`和`setChecked`這兩個方法\(method\)中加入一些檢查機制以確保每個待辦事項只有擁有者有權限刪除或是將該待辦事項設為已完成:
 
 [imports/api/tasks.js»](https://github.com/meteor/simple-todos/commit/b47254b75a77b7e17374a0cfefaa2b491db047bf)
 
@@ -186,7 +186,7 @@ In order to finish up our private task feature, we need to add checks to our`del
   'tasks.setPrivate'(taskId, setToPrivate) {
 ```
 
-> Notice that with this code anyone can delete any public task. With some small modifications to the code, you should be able to make it so that only the owner can delete their tasks.
+> 注意:即使加入以上的程式碼，每個人還是有權限可以刪除公開的待辦事項。你可以嘗試自行修改程式碼以確保每個公開或是非公開的待辦事項，都只有擁有者可以刪除它。
 
-We're done with our private task feature! Now our app is secure from attackers trying to view or modify someone's private tasks.
+
 
