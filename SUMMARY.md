@@ -12,4 +12,5 @@
 * [8.新增使用者帳戶](chapter8.md)
 * [9.使用方法\(Methods\)來增加安全性](chapter9.md)
 * [10.發佈\(Publish\)與訂閱\(subscribe\)](chapter10.md)
+* [11.測試\(Testing\)](chapter11.md)
 
