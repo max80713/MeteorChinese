@@ -73,97 +73,29 @@ Now we can write the test to call the`tasks.remove`method "as" that user and ver
 
 [imports/api/tasks.tests.js»](https://github.com/meteor/simple-todos/commit/9a08b96bae018a4ecb3d23dada624accdb817cb0)
 
-```
-import { Meteor } from 
-'meteor/meteor'
-;
-```
+    import { Meteor } from 'meteor/meteor';
+    import { Random } from 'meteor/random';
+    import { assert } from 'meteor/practicalmeteor:chai';
+    import { Tasks } from './tasks.js';
 
-```
-import { Random } from 
-'meteor/random'
-;
-```
+    ...some lines skipped...
+          });
+          it('can delete owned task', () => {
+            // Find the internal implementation of the task method so we can
+            // test it in isolation
+            const deleteTask = Meteor.server.method_handlers['tasks.remove'];
 
-```
-import { assert } from 
-'meteor/practicalmeteor:chai'
-;
-```
+            // Set up a fake method invocation that looks like what the method expects
+            const invocation = { userId };
 
-```
-import { Tasks } from 
-'./tasks.js'
-;
-```
+            // Run the method with `this` set to the fake invocation
+            deleteTask.apply(invocation, [taskId]);
 
-```
-...some lines skipped...
-```
-
-```
+            // Verify that the method does what we expected
+            assert.equal(Tasks.find().count(), 0);
+          });
+        });
       });
-```
-
-```
-      it(
-'can delete owned task'
-, () =
->
- {
-```
-
-```
-// Find the internal implementation of the task method so we can
-```
-
-```
-// test it in isolation
-```
-
-```
-const
- deleteTask = Meteor.server.method_handlers[
-'tasks.remove'
-];
-```
-
-```
-// Set up a fake method invocation that looks like what the method expects
-```
-
-```
-const
- invocation = { userId };
-```
-
-    // Run the method with `this` set to the fake invocation
-
-```
-        deleteTask.apply(invocation, [taskId]);
-```
-
-```
-// Verify that the method does what we expected
-```
-
-```
-        assert.equal(Tasks.find().count(), 
-0
-);
-```
-
-```
-      });
-```
-
-```
-    });
-```
-
-```
-  });
-```
 
 There's a lot more you can do in a Meteor test! You can read more about it in the Meteor Guide[article on testing](http://guide.meteor.com/testing.html).
 
