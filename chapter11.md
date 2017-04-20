@@ -24,56 +24,16 @@ Let's add a simple test \(that doesn't do anything yet\):
 
 ```
 /* eslint-env mocha */
-```
 
-```
-import { Meteor } from 
-'meteor/meteor'
-;
-```
+import { Meteor } from 'meteor/meteor';
 
-```
-if
- (Meteor.isServer) {
-```
-
-```
-  describe(
-'Tasks'
-, () =
->
- {
-```
-
-```
-    describe(
-'methods'
-, () =
->
- {
-```
-
-```
-      it(
-'can delete owned task'
-, () =
->
- {
-```
-
-```
+if (Meteor.isServer) {
+  describe('Tasks', () => {
+    describe('methods', () => {
+      it('can delete owned task', () => {
       });
-```
-
-```
     });
-```
-
-```
   });
-```
-
-```
 }
 ```
 
@@ -83,115 +43,27 @@ In any test we need to ensure the database is in the state we expect before begi
 
 ```
 /* eslint-env mocha */
-```
 
-```
-import { Meteor } from 
-'meteor/meteor'
-;
-```
+import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
+import { Tasks } from './tasks.js';
 
-```
-import { Random } from 
-'meteor/random'
-;
-```
-
-```
-import { Tasks } from 
-'./tasks.js'
-;
-```
-
-```
-if
- (Meteor.isServer) {
-```
-
-```
-  describe(
-'Tasks'
-, () =
->
- {
-```
-
-```
-    describe(
-'methods'
-, () =
->
- {
-```
-
-```
-const
- userId = Random.id();
-```
-
-```
-let
- taskId;
-```
-
-```
-      beforeEach(() =
->
- {
-```
-
-```
+if (Meteor.isServer) {
+  describe('Tasks', () => {
+    describe('methods', () => {
+      const userId = Random.id();
+      let taskId;
+      beforeEach(() => {
         Tasks.remove({});
-```
-
-```
         taskId = Tasks.insert({
-```
-
-```
-          text: 
-'test task'
-,
-```
-
-```
-          createdAt: 
-new
-Date
-(),
-```
-
-```
+          text: 'test task',
+          createdAt: new Date(),
           owner: userId,
-```
-
-```
-          username: 
-'tmeasday'
-,
-```
-
-```
+          username: 'tmeasday',
         });
-```
-
-```
       });
-```
-
-```
-      it(
-'can delete owned task'
-, () =
->
- {
-```
-
-```
+      it('can delete owned task', () => {
       });
-```
-
-```
     });
 ```
 
