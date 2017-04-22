@@ -1,24 +1,24 @@
 # 測試\(Testing\) {#testing}
 
-Now that we've created a few features for our application, let's add a test to ensure that we don't regress and that it works the way we expect.
+在前幾個章節，我們加入了一些新功能。接下來，我們要來寫一些測試以確保程式會如我們預期的運作。
 
-We'll write a test that exercises one of our Methods \(which form the "write" part of our app's API\), and verifies it works correctly.
+首先先寫一個測試，來測試寫入資料庫的功能，確保功能運作正常。
 
-To do so, we'll add a[test driver](http://guide.meteor.com/testing.html#test-driver)for the[Mocha](https://mochajs.org/)JavaScript test framework:
+在這之前，我們先安裝[Mocha](https://mochajs.org/) JavaScript測試框架的驅動套件:
 
 ```
 meteor add practicalmeteor:mocha
 ```
 
-We can now run our app in "test mode" by calling out a special command and specifying to use the driver \(you'll need to stop the regular app from running, or specify an alternate port with`--port XYZ`\):
+我們可以在測試模式\(test mode\)下執行我們的App並且指定我們要使用的驅動套件\(注意:必須先停止本來正在執行的App或是透過`--port XYZ`來指定另一個埠號，只要在終端機\(terminal\)輸入以下指令:
 
 ```
 meteor test --driver-package practicalmeteor:mocha
 ```
 
-If you do so, you should see an empty test results page in your browser window.
+你就會在瀏覽器上看到空白的測試結果頁。
 
-Let's add a simple test \(that doesn't do anything yet\):
+現在我們來寫一個簡單的測試\(什麼都不做的測試\):
 
 [imports/api/tasks.tests.js»](https://github.com/meteor/simple-todos/commit/92f2ca1d2865a5fd196879bb0185fd2edf3c619c)
 
@@ -37,7 +37,7 @@ if (Meteor.isServer) {
 }
 ```
 
-In any test we need to ensure the database is in the state we expect before beginning. We can use Mocha's`beforeEach`construct to do that easily:
+在每個測試開始之前，我們要確保資料庫中有我們要測試的資料，我們可以透過Mocha的`beforeEach`來存入資料:
 
 [imports/api/tasks.tests.js»](https://github.com/meteor/simple-todos/commit/cd403a50cacba784de11a7a94e6d55bc884b33fb)
 
@@ -67,9 +67,9 @@ if (Meteor.isServer) {
     });
 ```
 
-Here we create a single task that's associated with a random`userId`that'll be different for each test run.
+在這裡建立了一個隨機的`userId`，並且在測試開始之前透過這個`userId`來存入一個新的待辦事項到資料庫中。
 
-Now we can write the test to call the`tasks.remove`method "as" that user and verify the task is deleted:
+然後我們再透過這個`userId`來測試`tasks.remove`的功能，確保該使用者可以刪除剛剛所存入的待辦事項:
 
 [imports/api/tasks.tests.js»](https://github.com/meteor/simple-todos/commit/9a08b96bae018a4ecb3d23dada624accdb817cb0)
 
@@ -97,5 +97,5 @@ Now we can write the test to call the`tasks.remove`method "as" that user and ver
         });
       });
 
-There's a lot more you can do in a Meteor test! You can read more about it in the Meteor Guide[article on testing](http://guide.meteor.com/testing.html).
+我們還有很多測式要寫!如果想深入了解Meteor的測試功能，可以參考[article on testing](http://guide.meteor.com/testing.html)。
 
