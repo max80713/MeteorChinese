@@ -55,7 +55,7 @@ meteor mongo
 這樣將會打開主控台，並且連到你的App在本地端的資料庫，然後再輸入:
 
 ```
-db.tasks.insert({ text: "Hello world!", createdAt: newDate() });
+db.tasks.insert({ text: "Hello world!", createdAt: new Date() });
 ```
 
 這個時候頁面上出現一條新的待辦事項!我們不需要寫任何的程式碼來將瀏覽器端連接到伺服器端的資料庫，Meteor會自動幫你更新。
